@@ -5,6 +5,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: TerraformCLI@2
+  inputs:
+    command: 'init'
+    backendType: 'azurerm'
+    backendServiceArm: 'azlogin'
+    allowTelemetryCollection: false
 
 - task: TerraformCLI@2
   inputs:
@@ -13,13 +19,6 @@ steps:
     workspaceName: 'dev'
     allowTelemetryCollection: false
     skipExistingWorkspace: true
-- task: TerraformCLI@2
-  inputs:
-    command: 'init'
-    backendType: 'azurerm'
-    backendServiceArm: 'azlogin'
-    allowTelemetryCollection: false
-    
 - task: TerraformCLI@2
   inputs:
     command: 'validate'
