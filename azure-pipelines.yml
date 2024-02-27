@@ -10,7 +10,7 @@ steps:
     azureSubscription: 'azlogin'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az login'
+    inlineScript: 'echo login to cli'
 - task: TerraformCLI@2
   inputs:
     command: 'init'
