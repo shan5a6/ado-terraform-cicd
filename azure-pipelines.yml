@@ -5,11 +5,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'azlogin'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az login'
 - task: TerraformCLI@2
   inputs:
     command: 'init'
     backendType: 'azurerm'
     allowTelemetryCollection: false
+
 
 - task: TerraformCLI@2
   inputs:
