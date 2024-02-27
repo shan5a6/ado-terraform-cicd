@@ -6,10 +6,10 @@ terraform {
     }
   }
     backend "azurerm" {
-        resource_group_name  = "b3-rg1" # Resource Group Name
-        storage_account_name = "dvsterrastate" # Storage Account Name
-        container_name       = "dvsterrastate " # Container/Blob Name
-        key                  = "terraform.tfstate" # State File Name
+        resource_group_name  = "b3-rg1"
+        storage_account_name = "dvsterrastate"
+        container_name       = "stateconfiguration"
+        key                  = "terraform.tfstate"
     }
 
 }
