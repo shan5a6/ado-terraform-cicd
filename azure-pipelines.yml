@@ -7,6 +7,13 @@ pool:
 steps:
 - task: TerraformCLI@2
   inputs:
+    command: 'workspace'
+    workspaceSubCommand: 'new'
+    commandOptions: 'dev'
+    allowTelemetryCollection: false
+    skipExistingWorkspace: true
+- task: TerraformCLI@2
+  inputs:
     command: 'init'
     backendType: 'azurerm'
     backendServiceArm: 'azlogin'
