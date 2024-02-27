@@ -5,11 +5,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - task: TerraformCLI@2
   inputs:
     command: 'workspace'
     workspaceSubCommand: 'new'
-    commandOptions: 'dev'
+    workspaceName: 'dev'
     allowTelemetryCollection: false
     skipExistingWorkspace: true
 - task: TerraformCLI@2
