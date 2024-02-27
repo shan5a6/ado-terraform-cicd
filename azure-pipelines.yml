@@ -1,0 +1,23 @@
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: TerraformCLI@2
+  inputs:
+    command: 'init'
+    backendType: 'azurerm'
+    backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    backendAzureRmSubscriptionId: '69fc0447-bb32-4449-bce8-002d5b9938c9'
+    backendAzureRmResourceGroupName: 'b3-rg1'
+    backendAzureRmStorageAccountName: 'dvsterrastate'
+    backendAzureRmContainerName: 'stateconfiguration'
+    backendAzureRmKey: 'terraform.tfstate'
+    allowTelemetryCollection: false
+
+- task: TerraformCLI@2
+  inputs:
+    command: 'validate'
+    allowTelemetryCollection: true
