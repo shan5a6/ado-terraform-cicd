@@ -26,6 +26,11 @@ steps:
     backendType: 'azurerm'
     backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
     allowTelemetryCollection: false
+- task: TerraformCLI@2
+  inputs:
+    command: 'workspace'
+    allowTelemetryCollection: true
+    workspaceName: '${{ parameters.ENV }}'
 
 - ${{ if eq(parameters.ACTION, 'plan') }}:
   - task: TerraformCLI@2
