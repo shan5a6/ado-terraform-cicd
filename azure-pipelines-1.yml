@@ -1,0 +1,36 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: TerraformCLI@2
+  displayName: "Terraform init"
+  inputs:
+    command: 'init'
+    backendType: 'azurerm'
+    backendServiceArm: 'azlogin'
+    allowTelemetryCollection: false
+
+- task: Bash@3
+  displayName: "Collect workspace details"
+  inputs:
+    targetType: 'inline'
+    script: 'echo "##vso[task.setvariable variable=workspace]$(cat environment_to_deploy.json|awk -F'': '' ''/env/{print $2}''|sed ''s/"//g'')"'
+
+- task: TerraformCLI@2
+  displayName: "Select workspace"
+  inputs:
+    command: 'workspace'
+    allowTelemetryCollection: true
+    workspaceName: '$(workspace)'
+    
+- task: TerraformCLI@2
+  displayName: "Terraform apply"
+  inputs:
+    command: 'apply'
+    environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    runAzLogin: true
+    commandOptions: '-var-file $(workspace).tfvars'
+    allowTelemetryCollection: true
