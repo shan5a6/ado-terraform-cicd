@@ -1,22 +1,55 @@
 trigger:
-- master
+- none
 
 parameters:
   - name: ENV
+    type: string 
     default: "dev"
     values:
       - dev
       - prod
-
+  - name: ACTION
+    type: string
+    default: "plan"
+    values:
+      - "plan"
+      - "apply"
+      - "destroy"
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: TerraformCLI@2
+  inputs:
+    command: 'init'
+    backendType: 'azurerm'
+    backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    allowTelemetryCollection: false
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- ${{ if eq(parameters.action, 'plan') }}:
+- task: TerraformCLI@2
+  inputs:
+    command: 'plan'
+    environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    runAzLogin: true
+    commandOptions: '-var-file $(parameters.ENV).tfvars'
+    allowTelemetryCollection: false
+
+- ${{ elseif eq(parameters.action, 'apply') }}:
+- task: TerraformCLI@2
+  inputs:
+    command: 'apply'
+    environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    runAzLogin: true
+    commandOptions: '-var-file $(parameters.ENV).tfvars'
+    allowTelemetryCollection: false
+
+- ${{ elseif eq(parameters.action, 'destroy') }}:
+- task: TerraformCLI@2
+  inputs:
+    command: 'destroy'
+    environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    runAzLogin: true
+    commandOptions: '-var-file $(parameters.ENV).tfvars'
+    allowTelemetryCollection: false
