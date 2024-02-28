@@ -21,6 +21,7 @@ pool:
 
 steps:
 - task: TerraformCLI@2
+  displayName: "Terraform init"
   inputs:
     command: 'init'
     backendType: 'azurerm'
@@ -34,6 +35,7 @@ steps:
 
 - ${{ if eq(parameters.ACTION, 'plan') }}:
   - task: TerraformCLI@2
+    displayName: "Terraform plan"
     inputs:
       command: 'plan'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
@@ -43,6 +45,7 @@ steps:
 
 - ${{ elseif eq(parameters.ACTION, 'apply') }}:
   - task: TerraformCLI@2
+    displayName: "Terraform apply"
     inputs:
       command: 'apply'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
@@ -52,6 +55,7 @@ steps:
 
 - ${{ elseif eq(parameters.action, 'destroy') }}:
   - task: TerraformCLI@2
+    displayName: "Terraform destroy"
     inputs:
       command: 'destroy'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
