@@ -32,3 +32,9 @@ steps:
   inputs:
     command: 'validate'
     allowTelemetryCollection: true
+- task: TerraformCLI@2
+  inputs:
+    command: 'plan'
+    environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
+    runAzLogin: true
+    allowTelemetryCollection: true
