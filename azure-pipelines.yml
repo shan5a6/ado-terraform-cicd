@@ -6,17 +6,20 @@ pool:
 
 steps:
 - task: TerraformCLI@2
+  displayName: "Terraform init"
   inputs:
     command: 'init'
     backendType: 'azurerm'
     backendServiceArm: 'azlogin'
     allowTelemetryCollection: false
 - task: Bash@3
+  displayName: "Collect workspace details"
   inputs:
     targetType: 'inline'
     script: 'echo "##vso[task.setvariable variable=workspace]$(cat environment_to_deploy.json|awk -F'': '' ''/env/{print $2}''|sed ''s/"//g'')"'
 
 - task: TerraformCLI@2
+  displayName: "Create workspace if not exists"
   inputs:
     command: 'workspace'
     workspaceSubCommand: 'new'
@@ -24,6 +27,7 @@ steps:
     allowTelemetryCollection: false
     skipExistingWorkspace: true
 - task: TerraformCLI@2
+  displayName: "Select workspace $(workspace)"
   inputs:
     command: 'workspace'
     allowTelemetryCollection: true
