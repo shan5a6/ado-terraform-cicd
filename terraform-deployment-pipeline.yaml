@@ -27,7 +27,7 @@ steps:
     backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
     allowTelemetryCollection: false
 
-- ${{ if eq(parameters.action, 'plan') }}:
+- ${{ if eq(parameters.ACTION, 'plan') }}:
 - task: TerraformCLI@2
   inputs:
     command: 'plan'
@@ -36,7 +36,7 @@ steps:
     commandOptions: '-var-file $(parameters.ENV).tfvars'
     allowTelemetryCollection: false
 
-- ${{ elseif eq(parameters.action, 'apply') }}:
+- ${{ elseif eq(parameters.ACTION, 'apply') }}:
 - task: TerraformCLI@2
   inputs:
     command: 'apply'
