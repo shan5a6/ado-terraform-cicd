@@ -33,7 +33,7 @@ steps:
       command: 'plan'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
       runAzLogin: true
-      commandOptions: '-var-file $(parameters.ENV).tfvars'
+      commandOptions: '-var-file  ${{ parameters.ENV }}.tfvars'
       allowTelemetryCollection: false
 
 - ${{ elseif eq(parameters.ACTION, 'apply') }}:
@@ -42,7 +42,7 @@ steps:
       command: 'apply'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
       runAzLogin: true
-      commandOptions: '-var-file $(parameters.ENV).tfvars'
+      commandOptions: '-var-file ${{ parameters.ENV }}.tfvars'
       allowTelemetryCollection: false
 
 - ${{ elseif eq(parameters.action, 'destroy') }}:
@@ -51,5 +51,5 @@ steps:
       command: 'destroy'
       environmentServiceName: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
       runAzLogin: true
-      commandOptions: '-var-file $(parameters.ENV).tfvars'
+      commandOptions: '-var-file ${{ parameters.ENV }}.tfvars'
       allowTelemetryCollection: false
