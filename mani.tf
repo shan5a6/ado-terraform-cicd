@@ -75,7 +75,12 @@ resource "azurerm_virtual_machine" "javavm" {
     admin_username = var.vm_username
     admin_password = var.vm_pass
   }
+
   os_profile_linux_config {
-    disable_password_authentication = false
+    disable_password_authentication = true
+    ssh_keys {
+      key_data = file("publickey.pub")
+      path = "/home/${var.vm_username}/.ssh/authorized_keys"
+    }
   }
 }
