@@ -20,6 +20,15 @@ steps:
     script: 'echo "##vso[task.setvariable variable=workspace]$(cat environment_to_deploy.json|awk -F'': '' ''/env/{print $2}''|sed ''s/"//g'')"'
 
 - task: TerraformCLI@2
+  displayName: "Create workspace if not exists"
+  inputs:
+    command: 'workspace'
+    workspaceSubCommand: 'new'
+    workspaceName: '$(workspace)'
+    allowTelemetryCollection: false
+    skipExistingWorkspace: true
+    
+- task: TerraformCLI@2
   displayName: "Select workspace"
   inputs:
     command: 'workspace'
