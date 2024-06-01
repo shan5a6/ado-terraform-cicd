@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "b3-rg1"
+    resource_group_name  = "b1-2024-rg1"
     storage_account_name = "terraformcicdremote"
     container_name       = "remotestatefile"
     key                  = "terraform.tfstate"
