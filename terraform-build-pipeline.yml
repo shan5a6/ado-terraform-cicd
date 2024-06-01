@@ -10,7 +10,7 @@ steps:
   inputs:
     command: 'init'
     backendType: 'azurerm'
-    backendServiceArm: 'azlogin'
+    backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
     allowTelemetryCollection: false
 
 - task: Bash@3
