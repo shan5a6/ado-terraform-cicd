@@ -28,18 +28,12 @@ steps:
     backendServiceArm: 'Pay-As-You-Go (69fc0447-bb32-4449-bce8-002d5b9938c9)'
     allowTelemetryCollection: false
 
-- task: Bash@3
-  displayName: "Collect workspace details"
-  inputs:
-    targetType: 'inline'
-    script: 'echo "##vso[task.setvariable variable=workspace]$(cat environment_to_deploy.json|awk -F'': '' ''/env/{print $2}''|sed ''s/"//g'')"'
-
 - task: TerraformCLI@2
   displayName: "Create workspace if not exists"
   inputs:
     command: 'workspace'
     workspaceSubCommand: 'new'
-    workspaceName: '$(workspace)'
+    workspaceName: '${{ parameters.ENV }}'
     allowTelemetryCollection: false
     skipExistingWorkspace: true
     
